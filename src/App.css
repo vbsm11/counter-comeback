@@ -1,44 +1,13 @@
 .App {
-  margin: auto;
-  width: 270px;
-  height: 320px;
+  display: grid;
+  width: 1200px;
+  margin: 0 auto;
+
+  grid-template-areas:
+  's c';
+
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
   background: #f0f0f0;
   font-size: 250%;
-}
-
-.scoreboard {
-  margin: 3px;
-  border: 1px solid black;
-  border-radius: 2px;
-  text-align: center;
-}
-
-.buttons {
-  text-align: center;
-  margin: 3px;
-  border: 1px solid black;
-  border-radius: 2px;
-}
-
-.button {
-  margin: 3px;
-  width: 110px;
-  height: 45px;
-  font-size: 95%;
-}
-
-.setter {
-  text-align: center;
-  font-size: 60%;
-}
-
-.input {
-  font-size: 70%;
-  width: 150px;
-}
-
-.error {
-  color: red;
-  font-size: 50%;
-  text-align: center;
 }
