@@ -5,18 +5,21 @@ export type ScoreboardPropsType = {
     onSettings: boolean
     errorBothValues: boolean
     errorStartValue: boolean
+    warningMax: boolean
 }
 
-export const Scoreboard: React.FC<ScoreboardPropsType> = ({value, onSettings, errorBothValues, errorStartValue}) => {
+export const Scoreboard: React.FC<ScoreboardPropsType> = ({value, onSettings, errorBothValues, errorStartValue, warningMax}) => {
 
-    let text = 'enter values and pres "set"'
-    if (errorBothValues) text = 'incorrect values'
-    if (errorStartValue) text = 'incorrect start value'
+    let text = <div className={s.text}>enter values and press "set"</div>
+    if (errorBothValues) text = <div className={`${s.text} ${s.red}`}>incorrect values</div>
+    if (errorStartValue) text = <div className={`${s.text} ${s.red}`}>incorrect start value</div>
 
     const content = onSettings? text: value
 
+    const classes = warningMax? `${s.scoreboard} ${s.red}`: s.scoreboard
+
     return (
-        <div className={s.scoreboard}>
+        <div className={classes}>
             {content}
         </div>
     )

@@ -1,13 +1,23 @@
 .App {
   display: grid;
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
+  margin-top: 200px;
 
   grid-template-areas:
   's c';
 
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 18px;
   background: #f0f0f0;
   font-size: 250%;
+}
+
+.button {
+  width: 150px;
+  height: 65px;
+  font-size: 130%;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: lightgray;
 }

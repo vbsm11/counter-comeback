@@ -15,6 +15,7 @@ type CounterPropsType = {
 
 export const Counter: React.FC<CounterPropsType> = ({value, onSettings, errorBothValues,  errorStartValue, maxValue, incValue, resValue}) => {
 
+   const warningMax = value === maxValue
 
     return (
         <div className={s.counter}>
@@ -23,11 +24,12 @@ export const Counter: React.FC<CounterPropsType> = ({value, onSettings, errorBot
                 onSettings={onSettings}
                 errorBothValues={errorBothValues}
                 errorStartValue={errorStartValue}
+                warningMax={warningMax}
             />
             <Button
                 title='inc'
                 callback={incValue}
-                dis={value >= maxValue || onSettings}
+                dis={warningMax|| onSettings}
             />
             <Button
                 title='res'

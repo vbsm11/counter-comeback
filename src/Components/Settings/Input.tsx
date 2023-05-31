@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import s from './Settings.module.css'
 
 type InputPropsType = {
     text: string
@@ -15,13 +16,15 @@ export const Input: React.FC<InputPropsType> = ({text, value, setValue, setOnSet
         setOnSettings(true)
     }
 
+    const classes = error? `${s.input} ${s.error}`: s.input
+
     return (
-        <div>
+        <div className={s.inputComponent}>
             {text}
             <input
                 type="number"
                 value={value}
-                className={'input'}
+                className={classes}
                 onChange={onChangeHandler}
             />
         </div>
