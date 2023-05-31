@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Settings} from './Components/Settings/Settings';
 import {Counter} from './Components/Counter/Counter';
@@ -11,11 +11,23 @@ type StateType = {
 
 function App() {
 
-    const [state, setState] = useState<StateType>({
-        startValue: 0,
-        maxValue: 10,
-        currentValue: 0
-    })
+    const [state, setState] = useState<StateType>(() => {
+            const stateAsString = localStorage.getItem('currentState')
+            if (stateAsString) {
+                return JSON.parse(stateAsString)
+            } else return {
+                startValue: 0,
+                maxValue: 10,
+                currentValue: 0
+            }
+        }
+    )
+
+    useEffect(() => {
+        localStorage.setItem('currentState', JSON.stringify(state))
+    }, [state.startValue, state.maxValue]) // - сохраняем только настройки
+    // }, [state]) - сохраняем настройки и currentValue счетчика
+
 
     const [startValue, setStartValue] = useState<number>(state.startValue)
     const [maxValue, setMaxValue] = useState<number>(state.maxValue)
@@ -33,7 +45,7 @@ function App() {
     }
 
     const setStartAndMaxValue = (start: number, max: number) => {
-       setState({startValue: start, maxValue: max, currentValue: start})
+        setState({startValue: start, maxValue: max, currentValue: start})
     }
 
     return (
