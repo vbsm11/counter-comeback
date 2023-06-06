@@ -1,7 +1,7 @@
 export type ButtonPropsType = {
     title: string
     callback: () => void
-    dis: boolean
+    dis?: boolean
 }
 
 export const Button = (props: ButtonPropsType) => {

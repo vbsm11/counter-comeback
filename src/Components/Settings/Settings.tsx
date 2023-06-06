@@ -2,57 +2,52 @@ import React from 'react';
 import {Button} from '../Button';
 import {Input} from './Input';
 import s from './Settings.module.css'
+import {useDispatch, useSelector} from 'react-redux';
+import {setStartAndMaxValueAC} from '../../state/counter-reducer';
+import {setOnSettingsAC, setPrevMaxValueAC, setPrevStartValueAC, SettingsStateType} from '../../state/settings-reducer';
+import {AppRootStateType} from '../../state/store';
 
-export type SettingsPropsType = {
-    startValue: number
-    maxValue: number
-    setStartAndMaxValue: (start: number, max: number) => void
-    setStartValue: (v: number) => void
-    setMaxValue: (v: number) => void
-    onSettings: boolean
-    setOnSettings: (onSettings: boolean) => void
-    errorBothValues: boolean
-    errorStartValue: boolean
-}
+export const Settings: React.FC = () => {
 
-export const Settings: React.FC<SettingsPropsType> = ({
-                                                          startValue,
-                                                          maxValue,
-                                                          setStartAndMaxValue,
-                                                          setStartValue,
-                                                          setMaxValue,
-                                                          onSettings,
-                                                          setOnSettings,
-                                                          errorBothValues,
-                                                          errorStartValue
-                                                      }) => {
+    const {prevStartValue, prevMaxValue} = useSelector<AppRootStateType, SettingsStateType>(state => state.settingsState)
 
-    const callBack = () => {
-        setStartAndMaxValue(startValue, maxValue)
-        setOnSettings(false)
+    const errorBothValues: boolean = prevStartValue >= prevMaxValue
+    const errorStartValue: boolean = prevStartValue < 0
+
+    const dis = errorBothValues || errorStartValue
+
+    const dispatch = useDispatch()
+
+    const setCallBack = () => {
+        dispatch(setStartAndMaxValueAC(prevStartValue, prevMaxValue))
+        dispatch(setOnSettingsAC(false))
     }
 
-    const dis = errorBothValues || errorStartValue || !onSettings
+    const prevStartValueCallBack = (value: number) => {
+        dispatch(setPrevStartValueAC(value))
+    }
+
+    const prevMaxValueCallBack = (value: number) => {
+        dispatch(setPrevMaxValueAC(value))
+    }
 
     return (
         <div className={s.settings}>
             <div className={s.inputs}>
                 <Input
                     text="max value: "
-                    value={maxValue}
-                    setValue={setMaxValue}
-                    setOnSettings={setOnSettings}
+                    value={prevMaxValue}
+                    setValue={prevMaxValueCallBack}
                     error={errorBothValues}
                 />
                 <Input
                     text="start value: "
-                    value={startValue}
-                    setValue={setStartValue}
-                    setOnSettings={setOnSettings}
+                    value={prevStartValue}
+                    setValue={prevStartValueCallBack}
                     error={errorBothValues || errorStartValue}
                 />
             </div>
-            <Button title="set" callback={callBack} dis={dis}/>
+            <Button title="set" callback={setCallBack} dis={dis}/>
         </div>
     )
 }

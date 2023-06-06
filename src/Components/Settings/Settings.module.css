@@ -1,8 +1,10 @@
 .settings {
-    grid-area: s;
     border: 2px solid black;
     border-radius: 12px;
     text-align: center;
+    width: 500px;
+    margin: 0 auto;
+    background: #f0f0f0;
 }
 
 .inputs {
